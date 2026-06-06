@@ -125,3 +125,51 @@ transport/
 ```bash
 docker-compose down
 ```
+
+
+## Module Thành viên 3: Text2SQL + SQL Self-Correction
+
+Phần này bổ sung workflow chuyển câu hỏi tiếng Việt sang SQL trên SQLite, độc lập với chatbot Neo4j hiện có.
+
+### Tạo SQLite DB từ CSV
+
+```bash
+python -m text2sql.db_loader
+```
+
+Hoặc chạy CLI và tự tạo DB:
+
+```bash
+python text2sql_cli.py --init-db --debug --no-llm
+```
+
+Nếu có `GOOGLE_API_KEY`, bỏ `--no-llm` để dùng Gemini sinh SQL. Nếu không có API key, hệ thống tự dùng rule-based fallback để demo.
+
+### Ví dụ câu hỏi
+
+```text
+Có bao nhiêu đơn hàng đang giao?
+Thành viên nào giao nhiều đơn nhất?
+Danh sách đơn hàng ở khu vực Cầu Giấy?
+Tổng doanh thu theo loại mặt hàng?
+Khách hàng nào được shipper nam giao hàng?
+Khung giờ nào có nhiều đơn hàng nhất?
+```
+
+### Chạy evaluation
+
+```bash
+python evaluation/evaluate_text2sql.py --no-llm
+```
+
+### File chính
+
+```text
+text2sql/schema.py       # schema metadata, foreign keys, business terms
+text2sql/db_loader.py    # tạo SQLite DB từ CSV
+text2sql/prompts.py      # prompt generation + prompt correction
+text2sql/rules.py        # rule-based fallback không cần API key
+text2sql/validator.py    # validate SELECT-only và execute SQL
+text2sql/generator.py    # Text2SQLAgent + self-correction loop
+text2sql_cli.py          # CLI demo
+```
