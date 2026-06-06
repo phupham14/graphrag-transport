@@ -1,0 +1,6 @@
+{"id":"TC001","question":"Có bao nhiêu đơn hàng đang giao?","expected_sql_contains":["COUNT","DONHANG_GIAOHANG","TrangThaiGiaoHang"]}
+{"id":"TC002","question":"Thành viên nào giao nhiều đơn nhất?","expected_sql_contains":["THANHVIENGIAOHANG","COUNT","ORDER BY"]}
+{"id":"TC003","question":"Danh sách đơn hàng ở khu vực Cầu Giấy?","expected_sql_contains":["DONHANG_GIAOHANG","KHUVUC","Cầu Giấy"]}
+{"id":"TC004","question":"Tổng doanh thu theo loại mặt hàng?","expected_sql_contains":["CHITIET_DONHANG","LOAIMATHANG","SUM"]}
+{"id":"TC005","question":"Khách hàng nào được shipper nam giao hàng?","expected_sql_contains":["KHACHHANG","THANHVIENGIAOHANG","GioiTinh"]}
+{"id":"TC006","question":"Khung giờ nào có nhiều đơn hàng nhất?","expected_sql_contains":["KHOANGTHOIGIAN","COUNT","ORDER BY"]}
